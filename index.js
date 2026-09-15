@@ -1,9 +1,10 @@
 const express = require("express");
-const useClient = require("./src/string")
+const fixedWindow = require("./src/fixedWindowRL");
 const app = express();
 
-app.get('/', (req, res) => {
-    useClient();
+app.get('/', async (req, res) => {
+   const {allowed, remaining} = await fixedWindow(1, 60, 5);
+   console.log('allowed', allowed);
     res.send("Server is listening on port 3000");
 })
 
